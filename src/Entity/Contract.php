@@ -32,13 +32,8 @@ class Contract
     /**
      * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="contract")
      */
-    private $contract_type;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="contract")
-     */
     private $offers;
-
+    
     public function __construct()
     {
         $this->contract_type = new ArrayCollection();

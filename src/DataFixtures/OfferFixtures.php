@@ -4,11 +4,20 @@ namespace App\DataFixtures;
 
 use App\Entity\Offer;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class OfferFixtures extends Fixture
+
+class OfferFixtures extends Fixture implements DependentFixtureInterface
 {
+    public function getDependencies()
+    {
+        return[ContractFixtures::class];
+        return[ContractTypeFixtures::class];
+    }
+
+
     public function load(ObjectManager $manager)
     {
         // $product = new Product();
@@ -20,8 +29,8 @@ class OfferFixtures extends Fixture
 
             $offer = new Offer();
             $offer
-                ->setTitle($faker->sentence($nbWords=3, $variableNbWords = true))
-                ->setContent($faker->sentence($nbWords=20, $variableNbWords = true))
+                ->setTitle($faker->sentence())
+                ->setContent($faker->text($maxNbChars = 200))
                 ->setAddress($faker->streetAddress())
                 ->setPostalCode($faker->postcode())
                 ->setCity($faker->city())
@@ -30,10 +39,10 @@ class OfferFixtures extends Fixture
                 ->setEndedAt($faker->dateTimeAD($max = 'now', $timezone =null));
                
 
-                $contract = $this->getReference("contract_" . rand(0,2));
+                $contract = $this->getReference("contract_" . rand(0, 2));
                 $offer->setContract($contract);
 
-                $contract_type = $this->getReference("contract_type" . rand(0, 1));
+                $contract_type = $this->getReference("contract_type_" . rand(0, 1));
                 $offer->setContractType($contract_type);
 
                 $manager->persist($offer);
