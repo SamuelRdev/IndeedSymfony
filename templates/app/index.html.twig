@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Indeed mais en mieux 2021{% endblock %}
+{% block title %}Indeed mais en mieux{% endblock %}
 
 {% block body %}
 
@@ -11,14 +11,12 @@
         {% for offer in offer_list %}
             <div class="col-md-3">
                 <div class="card"> 
-                    <img src="{{ offer.image}}" alt="" class="card-img-top">
+                    <img src="https://www.placemonkeys.com/150/150?random" alt="" class="card-img-top">
                     <div class="card-body">
-                        <a href="/offer">
-                            <h2 class="card-title fs-5 text-center">{{ offer.title | upper}}</h2>
+                        <a href="{{ path("offers.show", {id: offer.id}) }}">
+                            <h2 class="card-title fs-5">{{ offer.title | upper}}</h2>
                             <ul>
-                            <li>{{ offer.city }}</li> 
-                            <li>{{ offer.contract }}</li> 
-                            <li>{{ offer.duration }}</li> 
+                                <li>{{ offer.city | upper}}</li>        
                             </ul>
                         </a>
                     </div>
