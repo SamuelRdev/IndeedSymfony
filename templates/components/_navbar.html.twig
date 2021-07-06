@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">BetterIndeed</a>
+          <a class="navbar-brand" href="{{ path('offers.list')}}">BetterIndeed</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -12,7 +12,7 @@
               <a class="nav-link" href="#">Consulter les salaires</a>
               <a class="nav-link" href="#">Télécharger votre CV</a>
               <a class="nav-link" href="#">Connexion</a>
-              <a class="nav-link" href="#">Entreprises/Publier une annonce</a>
+              <a class="nav-link" href="{{ path('offers.create')}}">Entreprises/Publier une annonce</a>
               </div>
             </div>
           </div>

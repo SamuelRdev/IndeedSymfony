@@ -2,11 +2,17 @@
 
 namespace App\Controller;
 
+use App\DataFixtures\ContractFixtures;
+use App\Entity\Contract;
 use App\Entity\Offer;
 use App\Repository\OfferRepository;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,17 +34,40 @@ class AppController extends AbstractController
     public function create(Request $request)
     {
         $offer = new Offer();
-
         $formBuilder = $this->createFormBuilder($offer);
         $formBuilder 
                     ->add('title')
+
                     ->add('content')
-                    ->add('submit', SubmitType::class );
+
+                    ->add('address')
+
+                    ->add('postal_code')
+
+                    ->add('city')
+    
+                    ->add('contract', ChoiceType::class, [
+                        'choices' => [
+                            'CDD' => "CDD",
+                            'CDI' => "CDI",
+                            'Freelance' => "Freelance"
+                        ],
+                    ])
+
+                    ->add('contract_type', ChoiceType::class, [
+                        'choices' => [
+                            "Temps plein" => "Temps plein",
+                            "Temps partiel" => "Temps partiel"
+                        ],
+                    ]);
+
         $form = $formBuilder->getForm();
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            $offer->setCreatedAt(new \DateTime());
+
             $offer = $form->getData();
 
             $manager = $this->getDoctrine()->getManager();
@@ -46,7 +75,7 @@ class AppController extends AbstractController
             $manager->flush();
 
             
-            return $this->redirectToRoute("offers.list");
+            return $this->redirectToRoute("offers.show", ['id' => $offer->getId()]);
         }
 
         // dd($form);

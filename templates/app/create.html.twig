@@ -1,11 +1,27 @@
 {% extends "base.html.twig" %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
 
 {% block body %}
-
-    <div class="container">
-        <h1>Add new post</h1>
-
-        {{ form(form) }}
+{% include "components/_navbar.html.twig" %};
+<h1 class='text-center'>Ajouter une nouvelle offre</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="form-control pe-5 ps-5 mb-5">
+                {{ form_start(form) }}
+                    {{ form_row(form.title, {'attr' : {'placeholder' : 'Titre de l\'offre'}}) }}
+                    {{ form_row(form.content, {'attr' : {'placeholder' : 'Contenu de l\'offre'}}) }}
+                    {{ form_row(form.address, {'attr' : {'placeholder' : 'Adresse de l\'offre'}}) }}
+                    {{ form_row(form.postal_code, {'attr' : {'placeholder' : 'Code postal de l\'offre'}}) }}
+                    {{ form_row(form.city, {'attr' : {'placeholder' : 'Ville de l\'offre'}}) }}
+                    {{ form_row(form.contract) }}
+                    {{ form_row(form.contract_type) }}
+                    <div class="button text-center">
+                        <button type="submit" class='btn btn-success'>Ajouter l'offre</button>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
     </div>
-
+</div>
 {% endblock %}

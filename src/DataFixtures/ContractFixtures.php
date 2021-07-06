@@ -10,11 +10,11 @@ use Doctrine\Persistence\ObjectManager;
 class ContractFixtures extends Fixture
 {
 
-    const CONTRACTS = ["CDI", "CDD", "FREE"];
+    const __CONTRACTS__ = ["CDI", "CDD", "FREE"];
 
     public function load(ObjectManager $manager)
     {
-        foreach(self::CONTRACTS as $key => $value) {
+        foreach(self::__CONTRACTS__ as $key => $value) {
             
             $slug = strtolower(trim($value));
 
