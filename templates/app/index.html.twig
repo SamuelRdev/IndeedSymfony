@@ -7,6 +7,9 @@
 {% include "components/_navbar.html.twig" %};
 
 <div class="container">
+
+    <a href="{{path("offers.create")}}" class='btn btn-primary'>Add Post</a>
+
     <div class="row mt-5">
         {% for offer in offer_list %}
             <div class="col-md-3">
