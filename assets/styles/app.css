@@ -7,3 +7,8 @@ a{
     text-decoration: none !important;
     color: black;
 }
+
+.createdAtSpan, .updatedAtSpan{
+    font-size:10px; 
+    font-style: italic; /* Supprimer dans template/app/offer.html.twig une fois que le css refonctionne*/ 
+}

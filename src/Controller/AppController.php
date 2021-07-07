@@ -32,10 +32,16 @@ class AppController extends AbstractController
         ]);
     }
 
+
     #[Route('/offers/add', name: 'offers.create')]
-    public function create(Request $request)
+    #[Route('/offers/{id}/edit', name: 'offers_edit.create')]
+    public function form(Offer $offer = null, Request $request)
     {
-        $offer = new Offer();
+        if(!$offer)
+        {
+            $offer = new Offer();
+        }
+
         $formBuilder = $this->createFormBuilder($offer);
         $formBuilder 
                     ->add('title')
@@ -69,7 +75,14 @@ class AppController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $offer->setCreatedAt(new \DateTime());
+
+            if(!$offer->getId())
+            {
+                $offer->setCreatedAt(new \DateTime());
+            } else
+            {
+                $offer->setUpdatedAt(new \DateTime());
+            }
 
             $offer = $form->getData();
 
@@ -82,7 +95,8 @@ class AppController extends AbstractController
         }
 
         return $this->render("app/create.html.twig", [
-            "form" => $form->createView()
+            "form" => $form->createView(),
+            'editMode' => $offer->getId() !== null
         ]);
 
     }
@@ -93,6 +107,17 @@ class AppController extends AbstractController
         return $this->render('app/offer.html.twig', [
             "offer" => $offer
         ]);
+    }
+
+     
+    #[Route('/offers/delete/{id}', name: 'offers.delete')]
+    public function delete(Offer $offer) 
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($offer);
+        $manager->flush();
+
+        return $this->render("delete_offer/delete.html.twig");
     }
     
 }

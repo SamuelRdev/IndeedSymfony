@@ -3,7 +3,13 @@
 
 {% block body %}
 {% include "components/_navbar.html.twig" %};
-<h1 class='text-center'>Ajouter une nouvelle offre</h1>
+<h1 class='text-center'>
+    {% if editMode %}
+        Modifier l'article 
+    {% else %}
+        Ajouter une nouvelle offre
+    {% endif %}
+</h1>
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
@@ -17,7 +23,13 @@
                     {{ form_row(form.contract) }}
                     {{ form_row(form.contract_type) }}
                     <div class="button text-center">
-                        <button type="submit" class='btn btn-success'>Ajouter l'offre</button>
+                        <button type="submit" class='btn btn-success'>
+                            {% if editMode %}
+                                Enregistrer les modifications
+                            {% else %}
+                                Ajouter l'offre
+                            {% endif %}
+                        </button>
                     </div>
                 {{ form_end(form) }}
             </div>

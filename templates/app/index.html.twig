@@ -8,25 +8,28 @@
 
 <div class="container">
 
-    <a href="{{path("offers.create")}}" class='btn btn-primary'>Add Post</a>
-    <a href="{{path("categories.create")}}" class='btn btn-primary'>Add category</a>
-    <a href="{{path("contract_type.create")}}" class='btn btn-primary'>Add contract type</a>
+    <a href="{{path("offers.create")}}" class='btn btn-primary'>Ajouter une offre</a>
+    <a href="{{path("categories.create")}}" class='btn btn-primary'>Ajouter un contrat</a>
+    <a href="{{path("contract_type.create")}}" class='btn btn-primary'>Ajouter un type de contrat</a>
 
     <div class="row mt-5">
         {% for offer in offer_list %}
-            <div class="col-md-3">
+            <div class=" col-md-4 mt-3">
                 <a href="{{ path("offers.show", {id: offer.id}) }}">
                     <div class="card"> 
                         <img src="https://www.placemonkeys.com/150/150?random" alt="" class="card-img-top">
                         <div class="card-body">
                             <h2 class="card-title fs-5">{{ offer.title | upper}}</h2>
-                            <ul>
-                                <li>{{ offer.city | upper}}</li>        
+                            <ul> 
+                                <li class='mt-2'>{{ offer.city }}</li> 
+                                <li class='mt-2'>{{ offer.contract }}</li> 
+                                <li class='mt-2'>{{ offer.contractType }}</li>        
                             </ul> 
                         </div>
                     </div>
                 </a>
             </div>
+            <div class="col-md-6"></div>
         {% endfor %}
     </div>
 </div>
