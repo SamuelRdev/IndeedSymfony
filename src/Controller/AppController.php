@@ -52,7 +52,7 @@ class AppController extends AbstractController
                         "class" => Contract::class,
                         "label" => 'Contract',
                         "choice_label" => 'name',
-                        'multiple' => true,
+                        'multiple' => false,
                         'expanded' => true,
                     ])
 
@@ -60,7 +60,7 @@ class AppController extends AbstractController
                         "class" => ContractType::class,
                         "label" => 'Contract',
                         "choice_label" => 'name',
-                        'multiple' => true,
+                        'multiple' => false,
                         'expanded' => true,
                     ]);
 
