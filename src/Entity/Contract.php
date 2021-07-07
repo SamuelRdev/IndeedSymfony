@@ -53,6 +53,7 @@ class Contract
     public function setName(string $name): self
     {
         $this->name = $name;
+        $this->setSlug($name);
 
         return $this;
     }
@@ -64,7 +65,9 @@ class Contract
 
     public function setSlug(string $slug): self
     {
-        $this->slug = $slug;
+        $lowertrim = strtolower(trim($slug));
+        $newSlug = str_replace(" ", "_", $lowertrim);
+        $this->slug = $newSlug;
 
         return $this;
     }
@@ -99,4 +102,8 @@ class Contract
         return $this;
     }
 
+
+    public function __toString(){
+        return $this->name;
+    }
 }

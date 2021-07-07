@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
-use App\DataFixtures\ContractFixtures;
+
 use App\Entity\Contract;
+use App\Entity\ContractType;
 use App\Entity\Offer;
 use App\Repository\OfferRepository;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -46,19 +48,20 @@ class AppController extends AbstractController
 
                     ->add('city')
     
-                    ->add('contract', ChoiceType::class, [
-                        'choices' => [
-                            'CDD' => "CDD",
-                            'CDI' => "CDI",
-                            'Freelance' => "Freelance"
-                        ],
+                    ->add('contract', EntityType::class, [
+                        "class" => Contract::class,
+                        "label" => 'Contract',
+                        "choice_label" => 'name',
+                        'multiple' => true,
+                        'expanded' => true,
                     ])
 
-                    ->add('contract_type', ChoiceType::class, [
-                        'choices' => [
-                            "Temps plein" => "Temps plein",
-                            "Temps partiel" => "Temps partiel"
-                        ],
+                    ->add('contract_type', EntityType::class, [
+                        "class" => ContractType::class,
+                        "label" => 'Contract',
+                        "choice_label" => 'name',
+                        'multiple' => true,
+                        'expanded' => true,
                     ]);
 
         $form = $formBuilder->getForm();
@@ -77,9 +80,6 @@ class AppController extends AbstractController
             
             return $this->redirectToRoute("offers.show", ['id' => $offer->getId()]);
         }
-
-        // dd($form);
-
 
         return $this->render("app/create.html.twig", [
             "form" => $form->createView()
