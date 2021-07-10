@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 offset-md-4 bg-success d-flex justify-content-center align-items-center">
+                <span class= ''>Votre inscription a bien été prise en compte.</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 offset-md-4 d-flex justify-content-center align-items-center mt-5">
+                <a href="{{path('offers.list')}}">Retourner a la page d'accueil</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

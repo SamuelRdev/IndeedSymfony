@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ContractType;
+use App\Form\ContractTypeType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,12 +17,8 @@ class ContractTypeController extends AbstractController
     public function create(Request $request){
         $contractType = new ContractType();
 
-        $formBuilder = $this->createFormBuilder($contractType);
-        $formBuilder
-                    ->add('name')
-                    ->add('submit', SubmitType::class);
+        $form = $this->createForm(ContractTypeType::class, $contractType);
 
-        $form = $formBuilder->getForm();
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
