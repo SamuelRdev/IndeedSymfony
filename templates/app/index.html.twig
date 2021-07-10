@@ -4,7 +4,7 @@
 
 {% block body %}
 
-{% include "components/_navbar.html.twig" %};
+
 
 <div class="container">
 
@@ -14,7 +14,7 @@
 
     <div class="row mt-5">
         {% for offer in offer_list %}
-            <div class=" col-md-4 mt-3">
+            <div class=" col-md-4 mt-3 mb-3">
                 <a href="{{ path("offers.show", {id: offer.id}) }}">
                     <div class="card"> 
                         <img src="https://www.placemonkeys.com/150/150?random" alt="" class="card-img-top">
