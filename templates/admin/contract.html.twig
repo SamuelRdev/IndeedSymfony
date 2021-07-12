@@ -12,7 +12,18 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <div class="form-control pe-5 ps-5 mb-5">
-                    {{ form(form) }}
+                    {{ form_start(form) }}
+                        {{ form_row(form.name) }}
+                        <div class="button text-center">
+                            <button type="submit" class='btn btn-success'>
+                                {% if editMode %}
+                                    Enregistrer
+                                {% else %}
+                                    Ajouter
+                                {% endif %}
+                            </button>
+                        </div>
+                    {{ form_end(form) }}
                 </div>
             </div>
         </div>

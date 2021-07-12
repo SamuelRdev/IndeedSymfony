@@ -80,6 +80,8 @@ class AppController extends AbstractController
         $manager->remove($offer);
         $manager->flush();
 
+        $this->addFlash('message', 'Votre offre a bien été supprimée.');
+
         return $this->render("delete_offer/delete.html.twig");
     }
     

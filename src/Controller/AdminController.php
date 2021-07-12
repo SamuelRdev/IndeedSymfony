@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Contract;
 use App\Entity\ContractType;
+use App\Entity\User;
 use App\Form\CategoryType;
 use App\Form\ContractTypeType;
+use App\Form\EditUserType;
 use App\Repository\ContractRepository;
 use App\Repository\ContractTypeRepository;
 use App\Repository\UserRepository;
@@ -55,6 +57,8 @@ class AdminController extends AbstractController
             $manager->persist($contract);
             $manager->flush();
 
+            $this->addFlash('message', 'Contrat ajouté/modifié avec succès.');
+
             return $this->redirectToRoute("admin_index");
            
         }
@@ -72,6 +76,8 @@ class AdminController extends AbstractController
         $manager->remove($contract);
         $manager->flush();
 
+        $this->addFlash('message', 'Contrat supprimé avec succès.');
+
         return $this->redirectToRoute('admin_index');
     }
 
@@ -84,11 +90,11 @@ class AdminController extends AbstractController
 
         if(!$contractType)
         {
-            $editMode = true;
+            $editMode = false;
             $contractType = new ContractType();
         }else
         {
-            $editMode = false;
+            $editMode = true;
         }
 
         $form = $this->createForm(ContractTypeType::class, $contractType);
@@ -101,6 +107,9 @@ class AdminController extends AbstractController
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($contractType);
             $manager->flush();
+
+
+            $this->addFlash('message', 'Type de contrat ajouté/modifié avec succès.');
 
             return $this->redirectToRoute("admin_index");
            
@@ -119,6 +128,29 @@ class AdminController extends AbstractController
         $manager->remove($contractType);
         $manager->flush();
 
+        $this->addFlash('message', 'Type de contrat supprimé avec succès.');
+
         return $this->redirectToRoute('admin_index');
+    }
+
+    #[Route('/users/update/{id}', name: 'users.update')]
+    public function editUser(Request $request, User $user)
+    {
+        $form = $this->createForm(EditUserType::class, $user);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash('message', 'Utilisateur modifié avec succès');
+
+            return $this->redirectToRoute('admin_index');
+        }
+        return $this->render('admin/edituser.html.twig', [
+            'userForm' => $form->createView()
+        ]);
     }
 }

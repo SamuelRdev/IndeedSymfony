@@ -47,7 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\Length(min = 8, max = 50, minMessage="Votre mot de passe est trop court. 8 caractères minimum.", maxMessage = "Votre mot de passe est trop long. 50 caractères minimum.")
+     * @Assert\Length(min = 8, max = 150, minMessage="Votre mot de passe est trop court. 8 caractères minimum.", maxMessage = "Votre mot de passe est trop long. 50 caractères minimum.")
      */
     private $password;
 

@@ -1,14 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 offset-md-4 bg-success d-flex justify-content-center align-items-center">
-                <span class= ''>Votre inscription a bien été prise en compte.</span>
+    {% for message in app.flashes('message') %}
+        <div class="container">
+            <div class="row">
+                <div class="col-6 offset-3">
+                    <div class="alert alert-success text-center">
+                            {{ message }}
+                    </div>
+                </div>   
             </div>
         </div>
+   {% endfor %}
+   <div class="container">
         <div class="row">
-            <div class="col-md-4 offset-md-4 d-flex justify-content-center align-items-center mt-5">
+            <div class="col-md-4 offset-md-4 d-flex justify-content-center align-items-center">
                 <a href="{{path('offers.list')}}">Retourner a la page d'accueil</a>
             </div>
         </div>

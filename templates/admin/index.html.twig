@@ -3,6 +3,19 @@
 {% block title %}Page Administrateur{% endblock %}
  
 {% block body %}
+
+    {% for message in app.flashes('message') %}
+    <div class="container">
+        <div class="row">
+            <div class="col-6 offset-3">
+                <div class="alert alert-success text-center">
+                        {{ message }}
+                </div>
+            </div>   
+        </div>
+    </div>
+   {% endfor %}
+   
    <h1 class='text-center'>Interface Administrateur</h1>
    <h2 class='mt-5 text-center'>Liste des Utilisateurs</h2>
    <table class = 'table'>
@@ -24,6 +37,8 @@
                         {% for roles in user.roles %}
                             {% if roles == 'ROLE_ADMIN' %}
                                 Administrateur
+                            {% elseif roles == 'ROLE_MOD' %}
+                                Modérateur
                             {% elseif roles == 'ROLE_EDITOR' %}
                                 Editeur
                             {% elseif roles == 'ROLE_USER' %}
@@ -32,7 +47,9 @@
                         {% endfor %}
                     </td>
                     <td></td>
-                    <td><a href="" class='btn btn-warning'>Modifier</a></td>
+                    <td>
+                        <a href="{{ path('admin_users.update', {'id': user.id}) }}" class='btn btn-warning'>Modifier</a>      
+                    </td>
                 </tr>
             {% else %}    
                 <tr>
@@ -95,6 +112,5 @@
                     </table>
             </div>
         </div>
-   </div>
-    
+   </div>    
 {% endblock %}

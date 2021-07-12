@@ -29,6 +29,7 @@ class SecurityController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
+            $this->addFlash('message', 'Votre compte a été crée avec succès.');
             return $this->render('security/inscription-valid.html.twig');
 
         }
