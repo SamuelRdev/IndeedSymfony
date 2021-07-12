@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page Administrateur{% endblock %}
+ 
+{% block body %}
+   <h1 class='text-center'>Interface Administrateur</h1>
+   <h2 class='mt-5 text-center'>Liste des Utilisateurs</h2>
+   <table class = 'table'>
+        <thead>
+            <th>ID</th>
+            <th>Nom d'utilisateur</th>
+            <th>Email</th>
+            <th>Rôle</th>
+            <th>Nombre d'offres</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            {% for user in usersList %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        {% for roles in user.roles %}
+                            {% if roles == 'ROLE_ADMIN' %}
+                                Administrateur
+                            {% elseif roles == 'ROLE_EDITOR' %}
+                                Editeur
+                            {% elseif roles == 'ROLE_USER' %}
+                                Utilisateur
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td></td>
+                    <td><a href="" class='btn btn-warning'>Modifier</a></td>
+                </tr>
+            {% else %}    
+                <tr>
+                    <td colspan = 6>Il n'y a pas d'utilisateurs inscrits.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+   </table>
+
+   <div class="container">
+        <div class="row">
+            <div class="col-md-6 d-flex flex-column">
+                <h2 class='mt-5 text-center'>Liste des contrats</h2>
+                <a href="{{path("admin_contracts.create")}}" class='btn btn-success align-self-end'>Ajouter</a>
+                <table class='table'>
+                    <thead>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Slug</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody>
+                        {% for contract in contractList %}
+                            <tr>
+                                <td>{{ contract.id }}</td>             
+                                <td>{{ contract.name }}</td>
+                                <td>{{ contract.slug }}</td>
+                                <td>
+                                    <a href="{{ path("admin_contracts.update", {id: contract.id}) }}" class='btn btn-warning'>Modifier</a>
+                                    <a href="{{ path("admin_contracts.delete", {id: contract.id}) }}" class='btn btn-danger'>Supprimer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6 d-flex flex-column">               
+                <h2 class='mt-5 text-center'>Liste des types de contrats</h2>
+                <a href="{{ path("admin_contract_types.create") }}" class='btn btn-success align-self-end'>Ajouter</a>
+                    <table class='table'>
+                        <thead>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Slug</th>
+                            <th>Action</th>
+                        </thead>
+                        <tbody>
+                            {% for contractTypes in contractTypeList %}
+                                <tr>
+                                    <td>{{ contractTypes.id }}</td>             
+                                    <td>{{ contractTypes.name }}</td>
+                                    <td>{{ contractTypes.slug }}</td>                    
+                                    <td>
+                                        <a href="{{ path("admin_contract_types.update", {id: contractTypes.id}) }}" class='btn btn-warning'>Modifier</a>
+                                        <a href="{{ path("admin_contract_types.delete", {id: contractTypes.id}) }}" class='btn btn-danger'>Supprimer</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+   </div>
+    
+{% endblock %}

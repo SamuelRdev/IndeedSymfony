@@ -1,7 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1 class='text-center'>Create new category</h1>
+
+    {% if editMode %}
+        <h1 class='text-center'>Modifier un contrat</h1>
+    {% else %}
+        <h1 class='text-center'>Créer un nouveau contrat</h1>
+    {% endif %}
 
     <div class="container">
         <div class="row">

@@ -1,9 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    
-    <h1 class ='text-center'>Create new contract type</h1>
-    
+
+    {% if editMode %}
+        <h1>Modifier un type de contrat</h1>
+    {% else %}
+        <h1 class ='text-center'>Créer un type de contrat</h1>
+    {% endif %}
+
     <div class="container">
         <div class="row">
             <div class="col-md-6 offset-md-3">
